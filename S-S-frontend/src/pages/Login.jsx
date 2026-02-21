@@ -26,17 +26,17 @@ const Login = () => {
     }
   }, [searchParams]);
 
-  const handleSignIn = () => {
+ const handleSignIn = () => {
     if (!selectedRole) {
       setError('Please select whether you are a Student or Faculty first.');
       return;
     }
     setLoading(true);
     setError('');
-
-    // Dynamically insert the backend URL
-    const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-    window.location.href = `${backendUrl}/api/auth/google?role=${selectedRole}`;
+    
+    // Inject the backend URL so the browser knows exactly where to go
+    const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    window.location.href = `${API_BASE_URL}/api/auth/google?role=${selectedRole}`;
   };
 
   return (
