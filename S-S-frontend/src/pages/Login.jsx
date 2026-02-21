@@ -33,7 +33,10 @@ const Login = () => {
     }
     setLoading(true);
     setError('');
-    window.location.href = `/api/auth/google?role=${selectedRole}`;
+
+    // Dynamically insert the backend URL
+    const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    window.location.href = `${backendUrl}/api/auth/google?role=${selectedRole}`;
   };
 
   return (
