@@ -1,18 +1,20 @@
 import axios from 'axios';
 
+// Detect environment automatically
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  (window.location.hostname === 'localhost'
+    ? 'http://localhost:5000'
+    : 'https://studyshala.onrender.com');
 
-
-// Get the live URL from Render, or use local if not found
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
+// Create Axios instance
 const api = axios.create({
-  // 2. Attach the base URL to your api path
   baseURL: `${API_BASE_URL}/api`,
+  timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },
 });
-
 
 // Request interceptor to attach JWT token
 api.interceptors.request.use(
@@ -28,11 +30,14 @@ api.interceptors.request.use(
   }
 );
 
-// Response interceptor to handle errors
+// Response interceptor to handle auth errors
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    if (
+      error.response?.status === 401 &&
+      window.location.pathname !== '/login'
+    ) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       window.location.href = '/login';
