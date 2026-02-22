@@ -2,7 +2,7 @@
 
 **StudyShala** is a modern, cloud-based study material management platform that connects faculty and students seamlessly. Faculty can upload and share educational resources, while students can access, save, and download materials using unique access codes — all without ever seeing Google Drive.
 
-![StudyShala Logo](./csme6.svg)
+![StudyShala Logo](./logo.svg)
 
 ---
 
@@ -312,7 +312,7 @@ node scripts/get-drive-token.js
 
 ```
 studyshala/
-├── backend/
+├── S-S-backend/
 │   ├── config/
 │   │   ├── database.js       # MongoDB connection
 │   │   └── passport.js       # Google OAuth strategy
@@ -340,7 +340,7 @@ studyshala/
 │   │   └── logger.js         # Winston logger
 │   └── server.js             # Express app entry point
 │
-└── frontend/
+└── S-S-frontend/
     ├── public/
     │   └── index.html
     ├── src/
