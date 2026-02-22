@@ -21,9 +21,10 @@ const AdminLogin = () => {
   }, [user, navigate]);
 
   useEffect(() => {
-    if (searchParams.get('error') === 'auth_failed') {
+    const err = searchParams.get('error');
+    if (err === 'auth_failed') {
       setError('Google sign-in failed. Please try again.');
-    } else if (searchParams.get('error') === 'not_admin') {
+    } else if (err === 'not_admin') {
       setError('This Google account does not have admin access.');
     }
   }, [searchParams]);
@@ -33,9 +34,12 @@ const AdminLogin = () => {
     setError('');
 
     const API_BASE_URL =
-      import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      import.meta.env.VITE_API_URL ||
+      (window.location.hostname === 'localhost'
+        ? 'http://localhost:5000'
+        : 'https://studyshala.onrender.com');
 
-    window.location.href = `${API_BASE_URL}/auth/google?role=admin`;
+    window.location.href = `${API_BASE_URL}/api/auth/google?role=admin`;
   };
 
   return (
@@ -49,8 +53,7 @@ const AdminLogin = () => {
         <div
           className="login-header"
           style={{
-            background:
-              'linear-gradient(135deg,#1e293b 0%,#0f172a 100%)',
+            background: 'linear-gradient(135deg,#1e293b 0%,#0f172a 100%)',
           }}
         >
           <img
@@ -68,10 +71,7 @@ const AdminLogin = () => {
         </div>
 
         <div className="login-body">
-          <h2
-            className="login-welcome"
-            style={{ fontSize: '1.25rem' }}
-          >
+          <h2 className="login-welcome" style={{ fontSize: '1.25rem' }}>
             ⚙️ Admin Sign In
           </h2>
           <p className="login-description">
@@ -127,10 +127,7 @@ const AdminLogin = () => {
             )}
           </button>
 
-          <div
-            className="admin-link-wrapper"
-            style={{ marginTop: '1rem' }}
-          >
+          <div className="admin-link-wrapper" style={{ marginTop: '1rem' }}>
             <Link to="/login" className="admin-link">
               ← Back to main login
             </Link>
