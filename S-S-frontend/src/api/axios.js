@@ -25,9 +25,7 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 // Response interceptor to handle auth errors
@@ -36,7 +34,7 @@ api.interceptors.response.use(
   (error) => {
     if (
       error.response?.status === 401 &&
-      window.location.pathname !== '/login'
+      !['/login', '/admin/login'].includes(window.location.pathname)
     ) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
