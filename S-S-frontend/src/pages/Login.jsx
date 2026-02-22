@@ -41,9 +41,12 @@ const Login = () => {
     setError('');
 
     const API_BASE_URL =
-      import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      import.meta.env.VITE_API_URL ||
+      (window.location.hostname === 'localhost'
+        ? 'http://localhost:5000'
+        : 'https://studyshala.onrender.com');
 
-    window.location.href = `${API_BASE_URL}/auth/google?role=${selectedRole}`;
+    window.location.href = `${API_BASE_URL}/api/auth/google?role=${selectedRole}`;
   };
 
   return (
